@@ -5,16 +5,25 @@ import Home from '../components/Home/Home';
 
 import './App.scss';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import fbConnection from '../helpers/data/connection';
+fbConnection();
 
 class App extends React.Component {
+  state = {
+    authed: false,
+  }
   
   render() {
+    const loadComponent = () => {
+      if (this.state.authed) {
+        return <Home />;
+      }
+      return <Auth />;
+    };
     
     return (
       <div className="App">
-        <Auth />
-        <Home />
+        {loadComponent()}
       </div>
     );
   }
