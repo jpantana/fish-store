@@ -9,13 +9,11 @@ import './Home.scss';
 class Home extends React.Component {
   render() {
     return (
-      <div className="Home w-100">
-        <div className="container m-auto w-100">
-          <div className="row justify-content-center h-100 w-100">
-            <Inventory />
-            <NewOrder />
-            <Orders />
-          </div>
+      <div className="Home">
+        <div className="row justify-content-center">
+          <div className="col-4"><Inventory /></div>
+          <div className="col-4"><NewOrder /></div>
+          <div className="col-4"><Orders /></div>
         </div>
       </div>
     );
