@@ -15,7 +15,7 @@ class OrderRow extends React.Component {
       <tr>
         <th>{order.name}</th>
         <td>{moment(order.dateTime).format('LLL')}</td>
-        <td>{ numFish }</td>
+        <td>{ numFish } </td>
         <td><button className="btn btn-danger">X</button></td>
       </tr>
     );

@@ -1,23 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import fishData from '../../helpers/data/fishData';
+import fishShapes from '../../helpers/propz/fishShapes';
 import Fish from '../Fish/Fish';
 
 import './Inventory.scss';
 
 class Inventory extends React.Component {
-  state = {
-    fishes: [],
-  }
-
-  componentDidMount() {
-    fishData.getFishes()
-      .then(fishes => this.setState({ fishes }))
-      .catch(err => console.error('no fish for you', err));
+  static propTypes = {
+    fishes: PropTypes.arrayOf(fishShapes.firshShape),
   }
 
   render() {
-    const fishComponents = this.state.fishes.map(fish => (
+    const fishComponents = this.props.fishes.map(fish => (
         <Fish key={fish.id} fish={fish}/>
     ));
     return (
