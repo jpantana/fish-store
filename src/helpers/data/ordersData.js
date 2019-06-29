@@ -4,6 +4,8 @@ import firebaseConfig from '../apiKeys.json';
 const baseUrl = firebaseConfig.firebaseKeys.databaseURL;
 
 
+const deleteOrder = orderId => axios.delete(`${baseUrl}/orders/${orderId}.json`);
+
 const getMyOrders = uid => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/orders.json?orderBy="uid"&equalTo="${uid}"`)
     .then((res) => {
@@ -16,4 +18,4 @@ const getMyOrders = uid => new Promise((resolve, reject) => {
     }).catch(err => reject(err));
 });
 
-export default { getMyOrders };
+export default { getMyOrders, deleteOrder };

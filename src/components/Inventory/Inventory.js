@@ -8,7 +8,7 @@ import './Inventory.scss';
 
 class Inventory extends React.Component {
   static propTypes = {
-    fishes: PropTypes.arrayOf(fishShapes.firshShape),
+    fishes: PropTypes.arrayOf(fishShapes.fishShape),
   }
 
   render() {
