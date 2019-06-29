@@ -29,7 +29,7 @@ class Fish extends React.Component {
         >
           {isAvailable ? 'Add To Order' : 'Sold Out!'}
         </button>
-      </li>    );
+      </li>);
   }
 }
 
