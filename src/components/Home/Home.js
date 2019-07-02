@@ -16,6 +16,7 @@ class Home extends React.Component {
   state = {
     orders: [],
     fishes: [],
+    fishOrder: {},
   }
 
   getOrders = () => {
@@ -38,14 +39,46 @@ class Home extends React.Component {
       .catch(err => console.error('nothing was deleted', err));
   };
 
+  addFishToOrder = (fishId) => {
+    const fishOrderCopy = { ...this.state.fishOrder }; // spread operator
+    fishOrderCopy[fishId] = fishOrderCopy[fishId] + 1 || 1;
+    this.setState({ fishOrder: fishOrderCopy });
+  };
+
+  removeFromOrder = (fishId) => {
+    const fishOrderCopy = { ...this.state.fishOrder };
+    delete fishOrderCopy[fishId];
+    this.setState({ fishOrder: fishOrderCopy });
+  };
+
+  saveNewOrder = (orderName) => {
+    const newOrder = { fishes: { ...this.state.fishOrder }, name: orderName };
+    newOrder.dateTime = Date.now();
+    newOrder.uid = firebase.auth().currentUser.uid;
+    console.error('new order', newOrder);
+    ordersData.postOrder(newOrder)
+      .then(() => {
+        this.setState({ fishOrder: {} });
+        this.getOrders();
+      })
+      .catch(err => console.error('no new order posted', err));
+  };
+
   render() {
-    const { fishes, orders } = this.state;
+    const { fishes, orders, fishOrder } = this.state;
 
     return (
       <div className="Home">
         <div className="row justify-content-center">
-          <div className="col-4"><Inventory fishes={ fishes }/></div>
-          <div className="col-4"><NewOrder /></div>
+          <div className="col-4"><Inventory fishes={ fishes } addFishToOrder={this.addFishToOrder}/></div>
+          <div className="col-4">
+            <NewOrder
+            fishes={fishes}
+            fishOrder={fishOrder}
+            removeFromOrder={this.removeFromOrder}
+            saveNewOrder={this.saveNewOrder}
+            />
+          </div>
           <div className="col-4"><Orders orders={ orders } deleteOrder={ this.deleteOrder }/></div>
         </div>
       </div>
