@@ -46,13 +46,18 @@ class Home extends React.Component {
   };
 
   render() {
-    const { fishes, orders } = this.state;
+    const { fishes, orders, fishOrder } = this.state;
 
     return (
       <div className="Home">
         <div className="row justify-content-center">
           <div className="col-4"><Inventory fishes={ fishes } addFishToOrder={this.addFishToOrder}/></div>
-          <div className="col-4"><NewOrder /></div>
+          <div className="col-4">
+            <NewOrder
+            fishes={fishes}
+            fishOrder={fishOrder}
+            />
+          </div>
           <div className="col-4"><Orders orders={ orders } deleteOrder={ this.deleteOrder }/></div>
         </div>
       </div>
